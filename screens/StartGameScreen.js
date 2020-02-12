@@ -14,6 +14,7 @@ import {
 import Card from "../components/Card";
 import Colors from "../constants/colors";
 import Input from "../components/input";
+import NumberContainer from "../components/NumberContainer";
 
 const StartGameScreen = props => {
   // entering
@@ -34,6 +35,7 @@ const StartGameScreen = props => {
   };
 
   const confirmInputHandler = () => {
+    // input validation
     // convertes input to int, and check again if input is number
     const chosenNumber = parseInt(enteredValue);
     if (chosenNumber === NaN || chosenNumber <= 0 || chosenNumber >= 99) {
@@ -48,10 +50,23 @@ const StartGameScreen = props => {
     setEnteredValue("");
   };
 
+  // handling input confirmation
   let confirmedOutput;
 
   if (confirmed) {
-    confirmedOutput = <Text>Chosen number: {selectedNumber}</Text>;
+    confirmedOutput = (
+      <Card style={styles.summaryContainer}>
+        <Text style={styles.message}>You selected:</Text>
+        <NumberContainer // passed to props.children in corresponding component
+        >
+          {selectedNumber}
+        </NumberContainer>
+
+        <View>
+          <Button title={"START GAME"} />
+        </View>
+      </Card>
+    );
   }
 
   return (
@@ -126,6 +141,13 @@ const styles = StyleSheet.create({
   input: {
     width: 50,
     textAlign: "center"
+  },
+  summaryContainer: {
+    margin: 20
+  },
+  message: {
+    alignSelf: "center",
+    fontSize: 20
   }
 });
 
