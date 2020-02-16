@@ -8,14 +8,24 @@ import GameScreen from "./screens/GameScreen";
 export default function App() {
   const [userNumber, setUserNumber] = useState(); // default is false
 
+  const [goBack, setGoBack] = useState();
+
   const startGameHandler = selectedNumber => {
     setUserNumber(selectedNumber);
+  };
+
+  const goBackHandler = status => {
+    setGoBack(status);
   };
 
   let content = <StartGameScreen onStartGame={startGameHandler} />; // default output
 
   if (userNumber) {
-    content = <GameScreen userChoice={userNumber} />;
+    content = <GameScreen userChoice={userNumber} onGoBack={goBackHandler} />;
+  }
+
+  if (goBack) {
+    content = <StartGameScreen onStartGame={startGameHandler} />;
   }
 
   return (

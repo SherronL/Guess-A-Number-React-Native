@@ -39,7 +39,7 @@ const StartGameScreen = props => {
     // input validation
     // convertes input to int, and check again if input is number
     const chosenNumber = parseInt(enteredValue);
-    if (chosenNumber === NaN || chosenNumber <= 0 || chosenNumber >= 99) {
+    if (chosenNumber === NaN || chosenNumber <= 0 || chosenNumber >= 100) {
       Alert.alert("You fucking donkey", "Enter a number between 1 and 99", [
         { text: "Sowwy", style: "destructive", onPress: resetInputHandler }
       ]);

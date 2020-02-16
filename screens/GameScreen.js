@@ -21,18 +21,56 @@ const GameScreen = props => {
     generateRandomBetween(1, 100, props.userChoice)
   ); // name
 
-  // get number from the user input
-  return (
-    <View style={styles.screen}>
-      <Text>Computer's Choice:</Text>
-      <NumberContainer>{currentGuess}</NumberContainer>
-      <Card style={styles.buttonContainer}>
-        <Button title="Lower" onPress={() => {}} />
-        <Button title="Higher" onPress={() => {}} />
-      </Card>
-      <Button title="Go back" onPress={() => {}} />
-    </View>
-  );
+  const [tries, setTries] = useState("");
+
+  const isLower = () => {
+    setCurrentGuess(generateRandomBetween(1, currentGuess, currentGuess));
+  };
+
+  const isHigher = () => {
+    setCurrentGuess(generateRandomBetween(currentGuess, 100, currentGuess));
+  };
+
+  // its not incrementing or my tries just doesnt work in this case wtf
+  const increment = () => {
+    let n = 0;
+    n = n + 1;
+    setTries(n);
+  };
+
+  const combinedLow = () => {
+    isLower();
+    increment();
+  };
+
+  const combinedHigh = () => {
+    isHigher();
+    increment();
+  };
+
+  if (currentGuess === props.userChoice) {
+    return (
+      <View style={styles.screen}>
+        <Text>It took computer {tries} tries!</Text>
+        <Card style={styles.buttonContainer}>
+          <Button title="Go back" onPress={() => props.onGoBack("true")} />
+        </Card>
+      </View>
+    );
+  } else {
+    // get number from the user input
+    return (
+      <View style={styles.screen}>
+        <Text>Computer's Choice:</Text>
+        <NumberContainer>{currentGuess}</NumberContainer>
+        <Card style={styles.buttonContainer}>
+          <Button title="Lower" onPress={combinedLow} />
+          <Button title="Higher" onPress={combinedHigh} />
+        </Card>
+        <Button title="Go back" onPress={() => props.onGoBack("true")} />
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
