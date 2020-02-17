@@ -54,6 +54,8 @@ const StartGameScreen = props => {
   let confirmedOutput;
 
   if (confirmed) {
+    // console.log(selectedNumber);
+
     confirmedOutput = (
       <Card style={styles.summaryContainer}>
         <Text style={styles.message}>You selected:</Text>
