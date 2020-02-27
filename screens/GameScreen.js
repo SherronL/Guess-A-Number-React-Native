@@ -27,7 +27,7 @@ const GameScreen = props => {
   // component doesnt rerender when state changes like useState
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
-  const currentTries = useRef(0);
+  // const currentTries = useRef(0);
 
   // desctructure the props
   // taking props and store them in the const of same names
@@ -35,9 +35,11 @@ const GameScreen = props => {
 
   // useEffect takes a function by default
   // that runs after every render cycle
+  // allows to run logic after every render cycle
+  // only rerun when one of the dependencies change
   useEffect(() => {
-    if (currentGuess === props.userChoice) {
-      props.onGameOver(tries);
+    if (currentGuess === userChoice) {
+      onGameOver(tries);
     }
   }, [currentGuess, userChoice, onGameOver]);
 
@@ -64,20 +66,10 @@ const GameScreen = props => {
       currentGuess
     );
     setCurrentGuess(nextNumber);
-    currentTries.current++;
+    // currentTries.current++;
     setTries(curTries => curTries + 1);
   };
 
-  // if (currentGuess === props.userChoice) {
-  //   return (
-  //     <View style={styles.screen}>
-  //       <Text>It took computer {currentTries.current} tries!</Text>
-  //       <Card style={styles.buttonContainer}>
-  //         <Button title="Go back" onPress={() => props.onGoBack("true")} />
-  //       </Card>
-  //     </View>
-  //   );
-  // }
   // get number from the user input
   return (
     <View style={styles.screen}>
@@ -90,7 +82,7 @@ const GameScreen = props => {
           onPress={nextGuessHandler.bind(this, "Higher")}
         />
       </Card>
-      <Button title="Go back" onPress={() => props.onGoBack("true")} />
+      <Button title="Go back" onPress={props.onRestart} />
     </View>
   );
 };
