@@ -4,7 +4,7 @@ import { TextInput, StyleSheet } from "react-native";
 const Input = props => {
   return (
     <TextInput
-      {...props} // takes props its getting and spread to the component
+      {...props} // merging or overwrite multiple styles so one doesnt get overwritten
       style={{ ...styles.input, ...props.style }}
     />
   );
